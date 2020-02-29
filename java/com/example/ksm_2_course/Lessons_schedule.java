@@ -21,7 +21,7 @@ public class Lessons_schedule extends AppCompatActivity {
     TextView textViewTuesday[][] = new TextView[4][4];
     TextView textViewWednesday[][] = new TextView[4][4];
     TextView textViewThursday[][] = new TextView[4][4];
-    static  String FILE_NAME="knt528.json";
+    static  String FILE_NAME;
     int first_day=3;
 
     @Override
