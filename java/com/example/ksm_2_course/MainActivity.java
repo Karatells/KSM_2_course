@@ -9,7 +9,7 @@ import android.widget.RadioButton;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static int StatusButton;
+    public static int StatusButton=1;
     Button res;
     int RES;
     @Override
