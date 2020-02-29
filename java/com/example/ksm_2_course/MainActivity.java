@@ -68,9 +68,6 @@ public class MainActivity extends AppCompatActivity {
 
    public void OnClick(View v)
     {
-        Calendar calendar = Calendar.getInstance();
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-
         Intent intent;
         intent = new Intent(this, Disciplines.class);
         intent.putExtra("Name", ((Button) v).getText());
