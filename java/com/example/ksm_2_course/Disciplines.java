@@ -105,13 +105,6 @@ public class Disciplines extends AppCompatActivity
         res.setText(Integer.toString(complete * 50 / Labs) + "%");
     }
 
-    @Override
-    protected  void onDestroy()
-    {
-        SaveAll();
-        super.onDestroy();
-    }
-
     protected void SaveAll()
     {
         boolean[][] compl_but = new boolean[Labs][2];
@@ -152,6 +145,7 @@ public class Disciplines extends AppCompatActivity
         }
 
         res.setText(Integer.toString(complete * 50 / Labs) + "%");
+         SaveAll();
     }
 
     private int GetCode(String name)
