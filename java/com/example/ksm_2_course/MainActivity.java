@@ -110,13 +110,22 @@ public class MainActivity extends AppCompatActivity {
         final TextView timerS = (TextView) findViewById(R.id.timerS);
         TextView timerM = (TextView) findViewById(R.id.timerM);
         TextView timerH = (TextView) findViewById(R.id.timerH);
-        timerM.setText(Integer.toString(endTimeM));
+        String buff = Integer.toString(endTimeM);
+        if(endTimeM<10){
+            timerM.setText("0"+buff);
+
+        }else{
+            timerM.setText(Integer.toString(endTimeM));
+        }
+
+
         if(endTimeH!=0) timerH.setText(Integer.toString(endTimeH));
         new CountDownTimer(seconds, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                if(millisUntilFinished<10){
-                    timerS.setText(""  + millisUntilFinished/1000);
+                if(millisUntilFinished<10000){
+                    String buff = Long.toString(millisUntilFinished/1000);
+                    timerS.setText("0"+buff);
                 }else{
                     timerS.setText("" + millisUntilFinished/1000);
                 }
