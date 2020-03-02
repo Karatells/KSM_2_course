@@ -2,6 +2,7 @@ package com.example.ksm_2_course;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
@@ -24,6 +25,7 @@ public class Lessons_schedule extends AppCompatActivity {
     static  String FILE_NAME;
     int first_day=2 ;
     static int week;
+    static int endTimeM,endTimeH;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,6 +127,102 @@ public class Lessons_schedule extends AppCompatActivity {
         }
 
         setDataBase();
+
+        //////////////////////////////////////////////
+                        //Таймер//
+        //////////////////////////////////////////////
+        int currentTimeH = calendar.get(Calendar.HOUR_OF_DAY),currentTimeM = calendar.get(Calendar.MINUTE),currentTimeS = calendar.get(Calendar.SECOND);
+        int currentTime = currentTimeH*60+currentTimeM;
+        TextView timeUntil = (TextView) findViewById(R.id.timeUntil);
+
+        //начало и конец пары (в минутах)
+        int[][] lessons = { { 510, 590 }, { 605, 685 }, { 715, 795}, { 805, 885}, { 895, 975 } };
+
+        //нахожу какая сейчас пара
+        //endTimeM времени осталось до конца пары (в минутах)
+        if(currentTime>=lessons[0][0] && currentTime<lessons[0][1]){
+            endTimeM = lessons[0][1]-currentTime;
+            time(currentTimeS);
+
+        }else if(currentTime>=lessons[1][0] && currentTime<lessons[1][1]){
+            endTimeM = lessons[1][1]-currentTime;
+            time(currentTimeS);
+
+        }else if(currentTime>=lessons[2][0] && currentTime<lessons[2][1]){
+            endTimeM = lessons[2][1]-currentTime;
+            time(currentTimeS);
+
+        }else if(currentTime>=lessons[3][0] && currentTime<lessons[3][1]){
+            endTimeM = lessons[3][1]-currentTime;
+            time(currentTimeS);
+
+        }else if(currentTime>=lessons[4][0] && currentTime<lessons[4][1]){
+            endTimeM = lessons[4][1]-currentTime;
+            time(currentTimeS);
+
+        }else if(currentTime>=lessons[0][1] && currentTime<lessons[1][0]){
+            timeUntil.setText("Початок II пари:");
+            endTimeM = lessons[1][0]-currentTime;
+            time(currentTimeS);
+
+        }else if(currentTime>=lessons[1][1] && currentTime<lessons[2][0]){
+            timeUntil.setText("Початок III пари:");
+            endTimeM = lessons[2][0]-currentTime;
+            time(currentTimeS);
+
+        }else if(currentTime>=lessons[2][1] && currentTime<lessons[3][0]){
+            timeUntil.setText("Початок IV пари:");
+            endTimeM = lessons[3][0]-currentTime;
+            time(currentTimeS);
+
+        }else if(currentTime>=lessons[3][1] && currentTime<lessons[4][0]){
+            timeUntil.setText("Початок V пари:");
+            endTimeM = lessons[4][0]-currentTime;
+            time(currentTimeS);
+
+        }else{
+            timeUntil.setText("Початок I пари:");
+            if(currentTime>lessons[0][0]) endTimeM = 24*60-currentTime+lessons[0][0];
+            else endTimeM = lessons[0][0]-currentTime;
+            time(currentTimeS);
+        }
+    }
+
+    public void time(int currentTime){
+        TextView textView12 = (TextView) findViewById(R.id.textView12);
+        endTimeH=endTimeM/60;
+        endTimeM%=60;
+        --endTimeM;
+        if(endTimeH==0) textView12.setText(" ");
+        timer((60-currentTime)*1000);
+    }
+    public void timer(int seconds){
+        final TextView timerS = (TextView) findViewById(R.id.timerS);
+        TextView timerM = (TextView) findViewById(R.id.timerM);
+        TextView timerH = (TextView) findViewById(R.id.timerH);
+        timerM.setText(Integer.toString(endTimeM));
+        if(endTimeH!=0) timerH.setText(Integer.toString(endTimeH));
+        new CountDownTimer(seconds, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                if(millisUntilFinished<10){
+                    timerS.setText(""  + millisUntilFinished/1000);
+                }else{
+                    timerS.setText("" + millisUntilFinished/1000);
+                }
+
+            }
+
+            @Override
+            public void onFinish() {
+                --endTimeM;
+                if(endTimeM>0) timer(60000);
+                else if(endTimeH>0){
+                    --endTimeH;
+                    endTimeM=60;
+                }
+            }
+        }.start();
     }
 
     public void OnClick(View v)
