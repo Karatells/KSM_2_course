@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
         int[][] lessons = {{510 * 60, 590 * 60}, {605 * 60, 685 * 60}, {715 * 60, 795 * 60}, {805 * 60, 885 * 60}, {895 * 60, 975 * 60}};
 
         //нахожу какая сейчас пара
-        
+
             if (currentTime >= lessons[0][0] && currentTime < lessons[0][1]) {
                 endTime = lessons[0][1] - currentTime;
             } else if (currentTime >= lessons[1][0] && currentTime < lessons[1][1]) {
@@ -151,11 +151,11 @@ public class MainActivity extends AppCompatActivity {
                 else endTime = lessons[0][0] - currentTime;
             }
 
-            
+
             //endTime в секундах
             timer(endTime * 1000);
         }
-        
+
         public void timer ( int millis){
             final TextView timerS = (TextView) findViewById(R.id.timerS);
             final TextView timerM = (TextView) findViewById(R.id.timerM);
@@ -187,6 +187,7 @@ public class MainActivity extends AppCompatActivity {
                     long hour = (millisUntilFinished / (1000 * 60)) / 60;
                     if (hour != 0) {
                         timerH.setText(Long.toString(hour));
+                        twoCommas2.setText(":");
                     } else {
                         timerH.setText(" ");
                         twoCommas2.setText(" ");
