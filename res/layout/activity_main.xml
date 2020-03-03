@@ -169,7 +169,6 @@
                     android:id="@+id/timerH"
                     android:layout_width="match_parent"
                     android:layout_height="36dp"
-                    android:text="_"
                     android:textSize="24sp" />
 
                 <TextView
