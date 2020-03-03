@@ -1,4 +1,4 @@
-    package com.example.ksm_2_course;
+        package com.example.ksm_2_course;
 
     import androidx.appcompat.app.AppCompatActivity;
     import android.content.Intent;
@@ -112,7 +112,7 @@
                 }
         }
 
-         public void time() {
+        public void time() {
             //нужные переменные
             Calendar calendar = Calendar.getInstance();
             int currentTimeH = calendar.get(Calendar.HOUR_OF_DAY), currentTimeM = calendar.get(Calendar.MINUTE), currentTimeS = calendar.get(Calendar.SECOND);
@@ -146,19 +146,14 @@
                 timer(endTime * 1000);
         }
 
-
-
-                //endTime в секундах
-                timer(endTime * 1000);
-            }
-
-            public void timer ( int millis){
+            public void timer ( int millis)
+            {
                 final TextView timerS = (TextView) findViewById(R.id.timerS);
                 final TextView timerM = (TextView) findViewById(R.id.timerM);
                 final TextView timerH = (TextView) findViewById(R.id.timerH);
                 final TextView twoCommas2 = (TextView) findViewById(R.id.twoCommas2);
 
-                new CountDownTimer(millis, 1000) {
+                CountDownTimer start = new CountDownTimer(millis, 1000) {
                     @Override
                     public void onTick(long millisUntilFinished) {
 
