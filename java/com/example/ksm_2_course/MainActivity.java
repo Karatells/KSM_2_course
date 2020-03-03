@@ -112,45 +112,40 @@
                 }
         }
 
-        public void time() {
+         public void time() {
             //нужные переменные
             Calendar calendar = Calendar.getInstance();
             int currentTimeH = calendar.get(Calendar.HOUR_OF_DAY), currentTimeM = calendar.get(Calendar.MINUTE), currentTimeS = calendar.get(Calendar.SECOND);
-            int currentTime = currentTimeH * 60 * 60 + currentTimeM * 60 + currentTimeS, endTime;
+            int currentTime = currentTimeH * 60 * 60 + currentTimeM * 60 + currentTimeS, endTime = 0;
             TextView timeUntil = (TextView) findViewById(R.id.timeUntil);
 
             //начало и конец пары (в секундах)
             int[][] lessons = {{510 * 60, 590 * 60}, {605 * 60, 685 * 60}, {715 * 60, 795 * 60}, {805 * 60, 885 * 60}, {895 * 60, 975 * 60}};
+            String[] romeNum = {"I", "II", "III", "IV", "V"};
 
             //нахожу какая сейчас пара
 
-                if (currentTime >= lessons[0][0] && currentTime < lessons[0][1]) {
-                    endTime = lessons[0][1] - currentTime;
-                } else if (currentTime >= lessons[1][0] && currentTime < lessons[1][1]) {
-                    endTime = lessons[1][1] - currentTime;
-                } else if (currentTime >= lessons[2][0] && currentTime < lessons[2][1]) {
-                    endTime = lessons[2][1] - currentTime;
-                } else if (currentTime >= lessons[3][0] && currentTime < lessons[3][1]) {
-                    endTime = lessons[3][1] - currentTime;
-                } else if (currentTime >= lessons[4][0] && currentTime < lessons[4][1]) {
-                    endTime = lessons[4][1] - currentTime;
-                } else if (currentTime >= lessons[0][1] && currentTime < lessons[1][0]) {
-                    timeUntil.setText("Початок II пари:");
-                    endTime = lessons[1][0] - currentTime;
-                } else if (currentTime >= lessons[1][1] && currentTime < lessons[2][0]) {
-                    timeUntil.setText("Початок III пари:");
-                    endTime = lessons[2][0] - currentTime;
-                } else if (currentTime >= lessons[2][1] && currentTime < lessons[3][0]) {
-                    timeUntil.setText("Початок IV пари:");
-                    endTime = lessons[3][0] - currentTime;
-                } else if (currentTime >= lessons[3][1] && currentTime < lessons[4][0]) {
-                    timeUntil.setText("Початок V пари:");
-                    endTime = lessons[4][0] - currentTime;
-                } else {
-                    timeUntil.setText("Початок I пари:");
-                    if (currentTime > lessons[0][0]) endTime = 24 * 60 * 60 - currentTime + lessons[0][0];
-                    else endTime = lessons[0][0] - currentTime;
+            if (currentTime > lessons[0][0] && currentTime < lessons[4][0]) {
+                for (int i = 1; i < 5; ++i) {
+                    if (currentTime < lessons[i][0]) {
+                        if (currentTime < lessons[i - 1][1])
+                            endTime = lessons[i - 1][1] - currentTime;
+                        else {
+                            endTime = lessons[i][0] - currentTime;
+                            timeUntil.setText("Початок " + romeNum[i] + " пари:");
+                        }
+                        break;
+                    }
                 }
+            }
+            else {
+                timeUntil.setText("Початок I пари:");
+                if (currentTime > lessons[0][0]) endTime = 24 * 60 * 60 - currentTime + lessons[0][0];
+                else endTime = lessons[0][0] - currentTime;
+            }
+                timer(endTime * 1000);
+        }
+
 
 
                 //endTime в секундах
