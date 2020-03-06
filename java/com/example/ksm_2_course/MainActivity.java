@@ -96,8 +96,9 @@
         }
 
         public void save(){
-            setting.setDefaultGroup(StatusButton);
             Gson gson = new Gson();
+            Setting setting = gson.fromJson(JSONHelper.read(this,SETTINGS_FILE), Setting.class);
+            setting.setDefaultGroup(StatusButton);
             String jsonString = gson.toJson(setting);
             JSONHelper.create(this, SETTINGS_FILE , jsonString);
         }
