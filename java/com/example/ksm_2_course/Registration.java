@@ -14,12 +14,8 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,7 +25,7 @@ public class Registration extends AppCompatActivity {
     EditText password, checkPassword, nickName;
     Button registration;
     RequestQueue requestQueue;
-    String url = "http://192.168.0.105/registr/InsertNewUser.php",getUserURL = "http://192.168.0.105/registr/getUser.php";
+    String url = "http://192.168.0.105/registr/InsertNewUser.php";
     public static boolean isTrue=false;
 
     @Override
@@ -44,7 +40,7 @@ public class Registration extends AppCompatActivity {
         requestQueue = Volley.newRequestQueue(getApplicationContext());
     }
 
-     public void OnClick(View view)
+    public void OnClick(View view)
     {
         String name = nickName.getText().toString();
         if(name.equals("")){
@@ -54,13 +50,13 @@ public class Registration extends AppCompatActivity {
 
         String pass = password.getText().toString();
         String checkpass = checkPassword.getText().toString();
-       if (!pass.equals(checkpass)){
-           Toast.makeText(Registration.this, "Incorrect password", Toast.LENGTH_SHORT).show();
-           return;
-       }else if(pass.equals("") || checkpass.equals("")) {
-           Toast.makeText(Registration.this, "Enter password", Toast.LENGTH_SHORT).show();
-           return;
-       }
+        if (!pass.equals(checkpass)){
+            Toast.makeText(Registration.this, "Incorrect password", Toast.LENGTH_SHORT).show();
+            return;
+        }else if(pass.equals("") || checkpass.equals("")) {
+            Toast.makeText(Registration.this, "Enter password", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         requestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>()
@@ -92,7 +88,7 @@ public class Registration extends AppCompatActivity {
     }
 
     public void Save()
-    {        
+    {
         SharedPreferences.Editor pref = PreferenceManager.getDefaultSharedPreferences(this).edit();
         pref.putBoolean(SettingsActivity.KEY_IS_REGISTERED,false);
         pref.apply();
