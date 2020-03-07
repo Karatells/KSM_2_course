@@ -19,14 +19,12 @@ import com.android.volley.toolbox.Volley;
 import java.util.HashMap;
 import java.util.Map;
 
-
 public class Registration extends AppCompatActivity {
 
     EditText password, checkPassword, nickName;
     Button registration;
     RequestQueue requestQueue;
     String url = "http://192.168.0.105/registr/InsertNewUser.php";
-    public static boolean isTrue=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
