@@ -22,6 +22,7 @@ public class SettingsActivity extends AppCompatActivity {
     public static final String KEY_GROUP = "group";
     public static final String KEY_IS_REGISTERED = "is_registered";
     public static final String KEY_NICKNAME = "nickname";
+    public static final String KEY_TIMER_SETTING = "timer_setting";
     String url = "http://192.168.0.105/registr/editUser.php";
     RequestQueue requestQueue;
     String oldNickname;
