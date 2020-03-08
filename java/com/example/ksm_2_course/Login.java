@@ -83,13 +83,12 @@ public class Login extends AppCompatActivity{
         });
         requestQueue.add(jsonObjectRequest);
     }
-
-
-
+    
     public void OnClickRegistration(View v){
         Intent intent;
         intent = new Intent(this, Registration.class);
         startActivity(intent);
+        overridePendingTransition(0, 0);
     }
 
     @Override
