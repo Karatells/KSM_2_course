@@ -11,10 +11,11 @@ function insertData()
     
     $NickName = $_POST["NickName"];
     $Pass = $_POST["Password"];
+    $NameGroup = $_POST["NameGroup"];
     
-    $query = "  INSERT INTO registration(NickName, Password)
+    $query = "  INSERT INTO `registration` (`Code_User`, `NickName`, `Password`, `Code_Group`)
                 VALUES
-                ('$NickName', '$Pass')";
+                (NULL, '$NickName', '$Pass', (SELECT Code_Group FROM st_groups WHERE NameGroup = '$NameGroup'))";
     
     mysqli_query($connect, $query) or die (mysqli_error($connect));
     mysqli_close($connect);
