@@ -35,14 +35,15 @@ public class SettingsActivity extends AppCompatActivity {
                 requestQueue = Volley.newRequestQueue(getApplicationContext());
                 StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>()
                 {
+
                     @Override
                     public void onResponse(String response)
                     {
                         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(SettingsActivity.this);
-                        String nickname = sharedPreferences.getString(SettingsActivity.KEY_NICKNAME,"");
                         if (response.indexOf("Duplicate") != -1)
                             Toast.makeText(SettingsActivity.this, "This nickname is taken by another user", Toast.LENGTH_SHORT).show();
                         else{
+                            String nickname = sharedPreferences.getString(SettingsActivity.KEY_NICKNAME,"");
                             Toast.makeText(getApplicationContext(),"Nickname changed WHERE nickname="+nickname+" oldnickname="+oldNickname,Toast.LENGTH_LONG).show();
                             oldNickname = sharedPreferences.getString(SettingsActivity.KEY_NICKNAME,"");
 
@@ -52,7 +53,10 @@ public class SettingsActivity extends AppCompatActivity {
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(SettingsActivity.this, "No connection", Toast.LENGTH_SHORT).show();
+                        SharedPreferences.Editor pref = PreferenceManager.getDefaultSharedPreferences(SettingsActivity.this).edit();
+                        pref.putString(SettingsActivity.KEY_NICKNAME,oldNickname);
+                        pref.commit();
+                        Toast.makeText(SettingsActivity.this, "No connection" , Toast.LENGTH_SHORT).show();
                     }
                 }) {
 
@@ -106,4 +110,6 @@ public class SettingsActivity extends AppCompatActivity {
         pref.registerOnSharedPreferenceChangeListener(listener);
         super.onResume();
     }
+
+
 }
