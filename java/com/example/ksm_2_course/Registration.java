@@ -42,6 +42,7 @@ public class Registration extends AppCompatActivity {
         Intent intent;
         intent = new Intent(this, Login.class);
         startActivity(intent);
+        overridePendingTransition(0, 0);
     }
 
     public void OnClick(View view)
